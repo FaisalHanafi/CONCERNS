@@ -1,9 +1,3 @@
-// Program for Lab Test
-
-// Matric No:
-// Name: 
-//Section:
-
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -24,10 +18,14 @@ void processRegistration (int, int, int);
 
 int main(){
 	
-	int classcode, coursetime, numparticipants;
+	int login,classcode, coursetime, numparticipants;
+	string username, password, usern, passw; 
+
+    
 	
 	cout<<"\tWELCOME TO ONE COOKING ACADEMY"<<endl<<endl<<endl;
 	
+	studentinfo = getInfo();
 	classcode = getCourseType();
 	coursetime = getCourseTime();
 	numparticipants = getNumParticipants();
@@ -38,6 +36,74 @@ int main(){
 	return 0;
 }
 
+string getInfo()
+{
+    cout << "1 : Register \n2 :Login\nYour choice :" <<endl;
+    cin >> login;
+	
+    if (login == 1)
+    {
+        string username, password;
+
+        cout << "Enter your username :";
+        cin >> username;
+        cout << "Enter your password :";
+        cin >> password;	
+	
+	ofstream file;
+	file.open("data\\" + username + ".txt");
+	
+	file<<"username :"<<username<<endl<<"password :"<<password;
+	file.close();
+	
+	main();
+    }
+	
+	else if(choice==2)
+    {
+       bool status = loginfo();
+
+       if(!status) 
+       {
+          cout<<"Invalid username or password!"<<endl;
+          system("PAUSE");
+
+	       return 0;
+       }
+       else
+       {
+           cout<<"Successfully Logged in"<<endl;
+           system("pause");
+           return 1;
+       }
+    } 
+}
+
+bool loginfo()
+{
+	cout << "Enter username :";
+   	cin >> username;
+
+   	cout << "Enter password :";
+   	cin >> password;
+	
+    	
+    	ifstream read("data\\" + username + ".txt");  
+    	
+    	getline(read, usern); 
+    	getline(read, passw); 
+
+    	
+
+    	if (usern == username && passw == password)
+    	{
+        	return true;   
+    	}
+    	else
+    	{
+        	return false;
+    	}	
+}
 
 int getCourseType()
 {
