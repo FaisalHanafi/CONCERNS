@@ -5,7 +5,7 @@ Cooking Course Registration System (ConCeRnS)
 A project for the CSC 1100 Elements of Programming done by me (Faisal).
 A simple registration system for One Cooking Course Academy that is developed by the use of C++.
 
-#Intsruction
+# Intsruction
 1) First things, first you will need to enter your choice of authentication whether registering as a new user or logging in as an existing user.
 2) However to experience the full system, it is recommended you to register as a new user.
 3) Then, choose between the course offered.
@@ -14,5 +14,5 @@ A simple registration system for One Cooking Course Academy that is developed by
 6) Lastly, the system will calculate the total charges which will include Goods&Services Tax (GST) which is amounted to 6%.
 
 
-#Future
+# Future
 Add payment module.
