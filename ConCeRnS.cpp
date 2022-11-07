@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 // Constant definitions
@@ -10,7 +11,8 @@ using namespace std;
 #define GST 0.06
 
 
-//declare all function protypes here 
+//Function declarations
+bool loginInfo();
 int getCourseTime();
 int getCourseType();
 int getNumParticipants();
@@ -18,91 +20,92 @@ void processRegistration (int, int, int);
 
 int main(){
 	
-	int login,classcode, coursetime, numparticipants;
-	string username, password, usern, passw; 
-
-    
+	int option,classcode, coursetime, numparticipants;
+	bool login;
 	
 	cout<<"\tWELCOME TO ONE COOKING ACADEMY"<<endl<<endl<<endl;
+
+	int choice;
+	cout << "\nPlease choose whether you want to login or register. \n";
+	cout << "1:Register \n2:Login \n";
+	cout << "Your choice: ";
+	cin >> choice;
+
+	if (choice == 1)
+	{
+		string password, username;
+
+		cout << "\nPlease enter your username: ";
+		cin >> username;
+		cout << "\nPlease enter your password: ";
+		cin >> password;
+		cout << "\n\n" <<endl;
+
+		std::ofstream file;
+
+		file.open("file.txt");
+
+		file << username << endl;
+		file << password;
+
+		file.close();
+		main();
+	}
 	
-	studentinfo = getInfo();
+	else if (choice == 2)
+	{
+		login = loginInfo();
+
+		if (!login)
+		{
+			cout <<"You had entered an incorrect username or password, please try again!" << endl;
+			system("PAUSE");
+			cout << "\n\n" <<endl;
+			exit(0);
+		}
+		else
+		{
+			cout <<"Succesfully logged in." << endl;
+			system("PAUSE");
+			cout << "\n\n" <<endl;
+			main();				
+		}
+	}
+	
 	classcode = getCourseType();
 	coursetime = getCourseTime();
 	numparticipants = getNumParticipants();
 	processRegistration (classcode, coursetime, numparticipants);
 		
-	cout <<endl<< "HAVE FUN COOKING!!!" <<endl;
+	cout <<endl<<"HAVE FUN COOKING!!!" <<endl;
 		
 	return 0;
 }
 
-string getInfo()
+
+
+bool loginInfo()
 {
-    cout << "1 : Register \n2 :Login\nYour choice :" <<endl;
-    cin >> login;
-	
-    if (login == 1)
-    {
-        string username, password;
+	string username, password, user, pass;
 
-        cout << "Enter your username :";
-        cin >> username;
-        cout << "Enter your password :";
-        cin >> password;	
-	
-	ofstream file;
-	file.open("data\\" + username + ".txt");
-	
-	file<<"username :"<<username<<endl<<"password :"<<password;
-	file.close();
-	
-	main();
-    }
-	
-	else if(choice==2)
-    {
-       bool status = loginfo();
+	cout << "Please enter your username:";
+	cin >> username;
+	cout << "Please enter your password:";
+	cin >> password;
 
-       if(!status) 
-       {
-          cout<<"Invalid username or password!"<<endl;
-          system("PAUSE");
+	ifstream read("file.txt");
 
-	       return 0;
-       }
-       else
-       {
-           cout<<"Successfully Logged in"<<endl;
-           system("pause");
-           return 1;
-       }
-    } 
-}
+	getline(read, user);
+	getline(read, pass);
 
-bool loginfo()
-{
-	cout << "Enter username :";
-   	cin >> username;
-
-   	cout << "Enter password :";
-   	cin >> password;
-	
-    	
-    	ifstream read("data\\" + username + ".txt");  
-    	
-    	getline(read, usern); 
-    	getline(read, passw); 
-
-    	
-
-    	if (usern == username && passw == password)
-    	{
-        	return true;   
-    	}
-    	else
-    	{
-        	return false;
-    	}	
+	if (username == user && password == pass)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 int getCourseType()
@@ -188,5 +191,3 @@ void processRegistration (int type, int time, int num)
 
 	return;
 }
-
-
